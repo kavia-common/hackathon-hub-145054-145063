@@ -44,6 +44,7 @@ const NavItems = [
   { id: 'home', label: 'Home', icon: '🏠' },
   { id: 'calendar', label: 'Calendar', icon: '📅' },
   { id: 'upcoming', label: 'Upcoming', icon: '🚀' },
+  { id: 'about', label: 'About', icon: 'ℹ️' },
 ];
 
 const sampleEvents = [
@@ -580,6 +581,129 @@ function UpcomingView({ tokens, onJoin }) {
 }
 
 /**
+ * Simple responsive image gallery
+ */
+function Gallery({ tokens, images = [] }) {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gap: 12,
+        gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
+      }}
+      className="grid-responsive"
+    >
+      {images.map((src, i) => (
+        <div key={i} style={{ gridColumn: 'span 4' }}>
+          <div
+            style={{
+              position: 'relative',
+              borderRadius: 14,
+              overflow: 'hidden',
+              border: `1px solid ${tokens.border}`,
+              background: `linear-gradient(180deg, ${tokens.gradientA}, transparent)`,
+              boxShadow: tokens.shadow,
+            }}
+          >
+            {/* eslint-disable-next-line jsx-a11y/alt-text */}
+            <img
+              src={src}
+              alt="Hackathon gallery item"
+              style={{
+                width: '100%',
+                height: 180,
+                objectFit: 'cover',
+                display: 'block',
+                filter: 'saturate(1.05)',
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * About view with Event Gallery
+ */
+// PUBLIC_INTERFACE
+function AboutView({ tokens }) {
+  const gallerySources = [
+    // Placeholder/generic images. In production replace with real assets under /public/assets
+    'https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop',
+  ];
+
+  return (
+    <div style={{ display: 'grid', gap: 16 }}>
+      <Card tokens={tokens} style={{ background: `linear-gradient(180deg, ${tokens.gradientA}, transparent)` }}>
+        <div style={{ display: 'grid', gap: 8 }}>
+          <h2 style={{ margin: 0, color: tokens.text }}>About Hackathon Hub</h2>
+          <p style={{ margin: 0, color: tokens.textMuted }}>
+            We bring builders together to ideate, prototype, and launch impactful projects. Our community spans
+            students, professionals, and founders rallying around innovation.
+          </p>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+            <span
+              style={{
+                background: `${tokens.primary}15`,
+                border: `1px solid ${tokens.primary}55`,
+                color: tokens.primary,
+                padding: '6px 10px',
+                borderRadius: 999,
+                fontSize: 12,
+                fontWeight: 700,
+              }}
+            >
+              #Collaboration
+            </span>
+            <span
+              style={{
+                background: `${tokens.primary}15`,
+                border: `1px solid ${tokens.primary}55`,
+                color: tokens.primary,
+                padding: '6px 10px',
+                borderRadius: 999,
+                fontSize: 12,
+                fontWeight: 700,
+              }}
+            >
+              #Innovation
+            </span>
+            <span
+              style={{
+                background: `${tokens.primary}15`,
+                border: `1px solid ${tokens.primary}55`,
+                color: tokens.primary,
+                padding: '6px 10px',
+                borderRadius: 999,
+                fontSize: 12,
+                fontWeight: 700,
+              }}
+            >
+              #Community
+            </span>
+          </div>
+        </div>
+      </Card>
+
+      <Card tokens={tokens}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+          <div style={{ fontWeight: 800, color: tokens.text }}>Event Gallery</div>
+          <div style={{ fontSize: 12, color: tokens.textMuted }}>Highlights from our most recent hackathon</div>
+        </div>
+        <Gallery tokens={tokens} images={gallerySources} />
+      </Card>
+    </div>
+  );
+}
+
+/**
  * Root App
  */
 // PUBLIC_INTERFACE
@@ -704,7 +828,13 @@ function App() {
                 }}
               />
               <div style={{ fontWeight: 800, color: tokens.text, letterSpacing: 0.2 }}>
-                {active === 'home' ? 'Home' : active === 'calendar' ? 'Calendar' : 'Upcoming events'}
+                {active === 'home'
+                  ? 'Home'
+                  : active === 'calendar'
+                  ? 'Calendar'
+                  : active === 'upcoming'
+                  ? 'Upcoming events'
+                  : 'About'}
               </div>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -744,6 +874,7 @@ function App() {
           {active === 'home' && <HomeView tokens={tokens} onJoin={() => openJoin(null)} />}
           {active === 'calendar' && <CalendarView tokens={tokens} />}
           {active === 'upcoming' && <UpcomingView tokens={tokens} onJoin={(ev) => openJoin(ev)} />}
+          {active === 'about' && <AboutView tokens={tokens} />}
         </main>
       </div>
 
