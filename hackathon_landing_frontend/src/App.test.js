@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders Hackathon Hub header', () => {
+test('renders HackthonWave branding', () => {
   render(<App />);
-  const header = screen.getAllByText(/Hackathon Hub/i)[0];
-  expect(header).toBeInTheDocument();
+  const branded = screen.getAllByText(/HackthonWave/i)[0];
+  expect(branded).toBeInTheDocument();
 });

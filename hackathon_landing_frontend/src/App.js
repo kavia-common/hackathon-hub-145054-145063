@@ -96,6 +96,10 @@ function useTheme() {
     } catch {
       // ignore
     }
+    // Keep browser tab title branded
+    if (typeof document !== 'undefined') {
+      document.title = 'HackthonWave';
+    }
   }, [theme]);
 
   const toggle = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'));
@@ -155,7 +159,7 @@ function Sidebar({ active, onSelect, onLoginClick, onJoinClick, tokens }) {
           aria-hidden="true"
         />
         <div>
-          <div style={{ fontWeight: 800, letterSpacing: 0.3 }}>Hackathon Hub</div>
+          <div style={{ fontWeight: 800, letterSpacing: 0.3 }}>HackthonWave</div>
           <div style={{ fontSize: 12, color: tokens.textMuted }}>Ocean Professional</div>
         </div>
       </div>
@@ -267,7 +271,7 @@ function HeaderBar({ onMenu, onThemeToggle, theme, tokens }) {
       >
         ☰ Menu
       </button>
-      <div style={{ fontWeight: 800, color: tokens.text }}>Hackathon Hub</div>
+      <div style={{ fontWeight: 800, color: tokens.text }}>HackthonWave</div>
       <button
         onClick={onThemeToggle}
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
@@ -379,7 +383,22 @@ function HomeView({ tokens, onJoin }) {
     <div style={{ display: 'grid', gap: 16 }}>
       <Card tokens={tokens} style={{ background: `linear-gradient(180deg, ${tokens.gradientA}, transparent)` }}>
         <div style={{ display: 'grid', gap: 8 }}>
-          <h1 style={{ margin: 0, color: tokens.text }}>Welcome to Hackathon Hub</h1>
+          <h1
+            style={{
+              margin: 0,
+              color: tokens.text,
+              fontSize: 36,
+              fontWeight: 900,
+              letterSpacing: 0.3,
+              backgroundImage: `linear-gradient(90deg, ${tokens.primary}, ${tokens.secondary})`,
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              colorAdjust: 'exact',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            HackthonWave
+          </h1>
           <p style={{ margin: 0, color: tokens.textMuted }}>
             Discover upcoming hackathons, plan your schedule, and join events with a single click.
           </p>
@@ -643,7 +662,7 @@ function AboutView({ tokens }) {
     <div style={{ display: 'grid', gap: 16 }}>
       <Card tokens={tokens} style={{ background: `linear-gradient(180deg, ${tokens.gradientA}, transparent)` }}>
         <div style={{ display: 'grid', gap: 8 }}>
-          <h2 style={{ margin: 0, color: tokens.text }}>About Hackathon Hub</h2>
+          <h2 style={{ margin: 0, color: tokens.text }}>About HackthonWave</h2>
           <p style={{ margin: 0, color: tokens.textMuted }}>
             We bring builders together to ideate, prototype, and launch impactful projects. Our community spans
             students, professionals, and founders rallying around innovation.
