@@ -271,7 +271,7 @@ function HeaderBar({ onMenu, onThemeToggle, theme, tokens }) {
       >
         ☰ Menu
       </button>
-      <div style={{ fontWeight: 800, color: tokens.text }}>HackthonWave</div>
+      <div style={{ fontWeight: 800, color: 'white' }}>HackthonWave</div>
       <button
         onClick={onThemeToggle}
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
@@ -386,20 +386,15 @@ function HomeView({ tokens, onJoin }) {
           <h1
             style={{
               margin: 0,
-              color: tokens.text,
+              color: 'white',
               fontSize: 36,
               fontWeight: 900,
               letterSpacing: 0.3,
-              backgroundImage: `linear-gradient(90deg, ${tokens.primary}, ${tokens.secondary})`,
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              colorAdjust: 'exact',
-              WebkitTextFillColor: 'transparent',
             }}
           >
             HackthonWave
           </h1>
-          <p style={{ margin: 0, color: tokens.textMuted }}>
+          <p style={{ margin: 0, color: 'white' }}>
             Discover upcoming hackathons, plan your schedule, and join events with a single click.
           </p>
           <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
@@ -819,82 +814,51 @@ function App() {
 
         {/* Main content */}
         <main
-          style={{
-            flex: 1,
-            padding: 16,
-            display: 'grid',
-            gap: 16,
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div
-                aria-hidden="true"
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: '50%',
-                  background: tokens.primary,
-                  boxShadow: `0 0 0 6px ${tokens.primary}20`,
-                }}
-              />
-              <div style={{ fontWeight: 800, color: tokens.text, letterSpacing: 0.2 }}>
-                {active === 'home'
-                  ? ''
-                  : active === 'calendar'
-                  ? 'Calendar'
-                  : active === 'upcoming'
-                  ? 'Upcoming events'
-                  : 'About'}
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button
-                onClick={toggle}
-                className="theme-toggle"
-                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-                style={{
-                  background: tokens.surface,
-                  border: `1px solid ${tokens.border}`,
-                  color: tokens.text,
-                  borderRadius: 12,
-                  padding: '8px 12px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                }}
-              >
-                {theme === 'light' ? '🌙' : '☀️'}
-              </button>
-              <button
-                onClick={() => openJoin(null)}
-                style={{
-                  background: tokens.primary,
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: 12,
-                  padding: '8px 12px',
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                }}
-              >
-                ➕ Join
-              </button>
-            </div>
-          </div>
+  style={{
+    flex: 1,
+    padding: 16,
+    display: 'grid',
+    gap: 16,
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')", // new hackathon/AI image
+    
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
+  }}
+>
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      // ❌ removed white overlay background
+      padding: 12,
+      borderRadius: 12,
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+      
+      <div style={{ fontWeight: 800, color: tokens.text, letterSpacing: 0.2 }}>
+        {active === 'home'
+          ? ''
+          : active === 'calendar'
+          ? 'Calendar'
+          : active === 'upcoming'
+          ? 'Upcoming events'
+          : 'About'}
+      </div>
+    </div>
+  </div>
 
-          {active === 'home' && <HomeView tokens={tokens} onJoin={() => openJoin(null)} />}
-          {active === 'calendar' && <CalendarView tokens={tokens} />}
-          {active === 'upcoming' && <UpcomingView tokens={tokens} onJoin={(ev) => openJoin(ev)} />}
-          {active === 'about' && <AboutView tokens={tokens} />}
-        </main>
+  {active === 'home' && <HomeView tokens={tokens} onJoin={() => openJoin(null)} />}
+  {active === 'calendar' && <CalendarView tokens={tokens} />}
+  {active === 'upcoming' && <UpcomingView tokens={tokens} onJoin={(ev) => openJoin(ev)} />}
+  {active === 'about' && <AboutView tokens={tokens} />}
+</main>
+
       </div>
 
       {/* Login Modal */}
