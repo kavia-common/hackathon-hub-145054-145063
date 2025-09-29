@@ -829,7 +829,7 @@ function App() {
               />
               <div style={{ fontWeight: 800, color: tokens.text, letterSpacing: 0.2 }}>
                 {active === 'home'
-                  ? 'Home'
+                  ? ''
                   : active === 'calendar'
                   ? 'Calendar'
                   : active === 'upcoming'
@@ -852,7 +852,7 @@ function App() {
                   cursor: 'pointer',
                 }}
               >
-                {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+                {theme === 'light' ? '🌙' : '☀️'}
               </button>
               <button
                 onClick={() => openJoin(null)}
